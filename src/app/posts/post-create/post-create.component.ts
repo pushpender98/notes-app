@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-post-create',
@@ -6,18 +8,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-create.component.scss']
 })
 export class PostCreateComponent implements OnInit {
-  newPost = "";
-  enteredValue = '';
+  formGroup!: FormGroup;
 
-  constructor() { }
+  @Output() postCreated: any = new EventEmitter();
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.createForm();
   }
 
-  onAddPost() {
-    // this.newPost = postInput.value;
+  createForm() {
+    this.formGroup = this.fb.group({
+      'title': ['', [Validators.required]],
+      'content': [null, [Validators.required]],
+    });
+  }
 
-    this.newPost = this.enteredValue;
+  onAddPost(post: any) {
+    if (!this.formGroup.valid) return;
+    
+    const { title, content } = post;
+    console.log(post)
+    this.postCreated.emit(post);
   }
 
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,7 +37,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

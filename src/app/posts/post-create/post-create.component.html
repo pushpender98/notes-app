@@ -1,7 +1,20 @@
-<mat-card>
-  <mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea matInput [(ngModel)]="enteredValue"></textarea>
+<form [formGroup]="formGroup" (ngSubmit)="onAddPost(formGroup.value)" class="form">
+
+  <mat-form-field class="form-element">
+    <input matInput placeholder="Title" formControlName="title">
+    <mat-error *ngIf="formGroup.controls['title'].errors?.['required']">
+      Title is required
+    </mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="onAddPost()">Save Post</button>
-</mat-card>
+
+  <mat-form-field class="form-element">
+    <textarea matInput placeholder="Content" matTextareaAutosize formControlName="content"></textarea>
+    <mat-error *ngIf="formGroup.controls['content'].errors?.['required']">
+      Content is required
+    </mat-error>
+  </mat-form-field>
+
+  <div class="form-element mt-2">
+    <button mat-raised-button color="primary" type="submit" class="button">Submit Form</button>
+  </div>
+</form>
