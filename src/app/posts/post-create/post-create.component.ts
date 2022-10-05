@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PostsService } from '../posts.service';
 
 
 @Component({
@@ -10,9 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PostCreateComponent implements OnInit {
   formGroup!: FormGroup;
 
-  @Output() postCreated: any = new EventEmitter();
-
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, public postService: PostsService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -27,10 +26,8 @@ export class PostCreateComponent implements OnInit {
 
   onAddPost(post: any) {
     if (!this.formGroup.valid) return;
-    
-    const { title, content } = post;
-    console.log(post)
-    this.postCreated.emit(post);
+    this.postService.addPost(post.title, post.content)
+    this.formGroup.reset();
   }
 
 }
